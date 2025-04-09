@@ -1,0 +1,6 @@
+.dockerignore
+.gitignore
+docker-automation.sh
+Dockerfile
+README.md
+node_modules/
