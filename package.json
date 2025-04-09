@@ -1,27 +1,27 @@
 {
-    "name": "youtubeautocomment",
-    "version": "1.0.0",
-    "description": "A microservice that monitors YouTube for new video uploads and automatically leaves a comment when a new video is detected.",
-    "main": "index.js",
-    "scripts": {
-        "test": "exit 0",
-        "build": "tsc"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/BrookMaoDev/YouTubeAutoComment.git"
-    },
-    "author": "Brook Mao",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/BrookMaoDev/YouTubeAutoComment/issues"
-    },
-    "homepage": "https://github.com/BrookMaoDev/YouTubeAutoComment#readme",
-    "dependencies": {
-        "express": "^5.1.0",
-        "typescript": "^5.8.3"
-    },
-    "devDependencies": {
-        "@types/express": "^5.0.1"
-    }
+  "name": "youtubeautocomment",
+  "version": "1.0.0",
+  "description": "A microservice that monitors YouTube for new video uploads and automatically leaves a comment when a new video is detected.",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrookMaoDev/YouTubeAutoComment.git"
+  },
+  "author": "Brook Mao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrookMaoDev/YouTubeAutoComment/issues"
+  },
+  "homepage": "https://github.com/BrookMaoDev/YouTubeAutoComment#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1"
+  }
 }
