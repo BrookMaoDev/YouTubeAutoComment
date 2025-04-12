@@ -10,4 +10,4 @@ RUN npm run build
 
 EXPOSE 80
 USER node
-CMD ["node", "index.js"]
+CMD ["node", "app.js"]
