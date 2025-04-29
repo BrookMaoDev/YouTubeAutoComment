@@ -61,9 +61,11 @@ async function gracefulshutdown(signal: string) {
     process.exit(0); // Exit the process cleanly
 }
 
-// Listen for both SIGINT (Ctrl+C) and SIGTERM (Docker stop, etc.)
-process.on("SIGINT", gracefulshutdown); // Ctrl+C
-process.on("SIGTERM", gracefulshutdown); // Docker stop or kill
+if (!isProduction) {
+    // Listen for both SIGINT (Ctrl+C) and SIGTERM (Docker stop, etc.)
+    process.on("SIGINT", gracefulshutdown); // Ctrl+C
+    process.on("SIGTERM", gracefulshutdown); // Docker stop or kill
+}
 
 app.get("/", async (req, res) => {
     let q = url.parse(req.url, true).query;
