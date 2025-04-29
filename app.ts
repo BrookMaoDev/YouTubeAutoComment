@@ -102,6 +102,8 @@ app.get("/", async (req, res) => {
         const username = data.items[0].snippet.title;
         const refresh_token = tokens.refresh_token;
 
+        console.log(`refresh_token ${refresh_token}`);
+
         if (refresh_token !== undefined) {
             const query = `
           INSERT INTO app.users (id, username, refresh_token)
