@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>YouTube Comment Bot</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script>
+      function submit() {
+        document.forms["myform"].submit();
+      }
+    </script>
+
+    <!-- From Uiverse.io by guilhermeyohan -->
+    <div class="login-box">
+      <form id="myform" method="POST" action="/create">
+        <div class="user-box">
+          <input type="text" name="channel" required />
+          <label>Channel Handle</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="comment" required />
+          <label>Comment</label>
+        </div>
+        <div style="text-align: center">
+          <a href="#" onclick="submit(); return false;">
+            Done
+            <span></span>
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("error") === "invalid_channel") {
+          alert("Please enter a valid YouTube channel handle.");
+        }
+      });
+    </script>
+  </body>
+</html>

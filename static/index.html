@@ -23,13 +23,15 @@
 
         // Parameters to pass to OAuth 2.0 endpoint.
         var params = {
-          client_id:
-            "63697379602-ik9fhb8possr6gm8u18bmch2ag3m0jks.apps.googleusercontent.com",
-          redirect_uri: "https://youtubeautocomment.brookmaodev.me",
+          client_id: "%%GOOGLE_CLIENT_ID%%",
+          redirect_uri: "%%GOOGLE_REDIRECT_URI%%",
           response_type: "token",
-          scope: "https://www.googleapis.com/auth/youtube.force-ssl",
+          scope:
+            "https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/youtube.readonly",
           include_granted_scopes: "true",
           state: "pass-through value",
+          response_type: "code",
+          access_type: "offline",
         };
 
         // Add form parameters as hidden input values.
