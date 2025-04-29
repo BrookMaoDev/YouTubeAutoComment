@@ -7,6 +7,7 @@ import url from "url";
 import fs from "fs";
 import { google } from "googleapis";
 import { Pool } from "pg";
+import cookieParser from "cookie-parser";
 
 interface ChannelRow {
     id: string;
@@ -30,6 +31,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 app.use(express.urlencoded({ extended: true })); // for form data
 app.use(express.json()); // for JSON data (optional)
+app.use(cookieParser());
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
