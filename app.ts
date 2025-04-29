@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 import express from "express";
-import session from "express-session";
+import jwt from "jsonwebtoken";
 import path from "path";
 import url from "url";
 import fs from "fs";
@@ -30,19 +30,6 @@ const isProduction = process.env.NODE_ENV === "production";
 
 app.use(express.urlencoded({ extended: true })); // for form data
 app.use(express.json()); // for JSON data (optional)
-
-app.use(
-    session({
-        secret: SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            secure: isProduction, // Only send cookies over HTTPS in production
-            httpOnly: true,
-            sameSite: "lax",
-        },
-    })
-);
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
@@ -102,7 +89,16 @@ app.get("/", async (req, res) => {
         const username = data.items[0].snippet.title;
         const refresh_token = tokens.refresh_token;
 
-        console.log(`refresh_token ${refresh_token}`);
+        const token = jwt.sign({ id: id, name: username }, SESSION_SECRET, {
+            expiresIn: "7d",
+        });
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
 
         if (refresh_token !== undefined) {
             const query = `
@@ -117,11 +113,6 @@ app.get("/", async (req, res) => {
                 refresh_token,
             ]);
         }
-
-        req.session.user = {
-            id: id,
-            username: username,
-        };
 
         res.sendFile(path.join(__dirname, "static", "create.html"));
     } else {
@@ -146,7 +137,20 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/create", async (req, res) => {
-    if (!req.session.user) {
+    const token = req.cookies.token;
+    if (!token) {
+        res.redirect("/index.html");
+        return;
+    }
+
+    let decoded: { id: string; name: string };
+    try {
+        decoded = jwt.verify(token, SESSION_SECRET) as {
+            id: string;
+            name: string;
+        };
+    } catch (err) {
+        console.error("Invalid token:", err);
         res.redirect("/index.html");
         return;
     }
@@ -222,7 +226,7 @@ app.post("/create", async (req, res) => {
 
     db_result = await pool.query(insertCommentQuery, [
         req.body.comment,
-        req.session.user.id,
+        decoded.id,
         id,
     ]);
 
