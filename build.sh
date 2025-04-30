@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Exit if a command exits with a nonzero exit value
+# Exit the script if any command fails
 set -e
 
-# Stop and remove all Docker containers
+# Stop and remove all running Docker containers
 CONTAINERS=$(docker ps -a -q)
 
-if [ ! -z "$CONTAINERS" ]; then
-	docker stop ${CONTAINERS}
-	docker rm ${CONTAINERS}
+if [ -n "$CONTAINERS" ]; then
+	docker stop $CONTAINERS
+	docker rm $CONTAINERS
 fi
 
-# Build image
+# Build the Docker image
 docker build -t youtubeautocomment .
 
-# Test image
+# Run the Docker container to test the image
 docker run -p 80:80 youtubeautocomment

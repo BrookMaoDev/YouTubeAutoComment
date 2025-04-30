@@ -1,6 +1,7 @@
+node_modules/
+build.sh
+Dockerfile
 .dockerignore
 .gitignore
-docker-automation.sh
-Dockerfile
 README.md
-node_modules/
+init_db.sql
