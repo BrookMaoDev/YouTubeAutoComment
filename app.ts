@@ -392,6 +392,8 @@ app.post("/poll", async (req, res) => {
     res.json({ status: "complete" });
 });
 
+app.use(express.static(path.join(__dirname, "static")));
+
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });

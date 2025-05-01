@@ -19,3 +19,6 @@ CREATE TABLE app.comments (
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES app.users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT fk_channel FOREIGN KEY (channel_id) REFERENCES app.channels(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+
